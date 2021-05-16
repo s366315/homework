@@ -49,8 +49,23 @@ public class Starter {
 
         vehicleEntity = ticketClient.createOrUpdateVehicle(vehicleEntity);
 
-
-        vehicleEntity.getSeatInfos().get(0).setFreeSeats(20);
+        //редактирование количества мест
+        vehicleEntity.getSeats().get(0).setFreeSeats(20);
         ticketClient.createOrUpdateVehicle(vehicleEntity);
+
+        //удаление информации о транспорте
+        for (SeatEntity seat : vehicleEntity.getSeats()) {
+            ticketClient.removeSeatInfo(seat);
+        }
+
+        //удаление транспорта
+        ticketClient.removeVehicle(vehicleEntity);
+
+        //удаление остановки
+        StopEntity stop = journeyEntity.getStopPoints().get(0);
+        ticketClient.removeStop(stop);
+
+        //удаление маршрута
+        ticketClient.removeJourneyById(journeyEntity.getId());
     }
 }

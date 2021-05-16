@@ -28,4 +28,14 @@ public class TransactionalJourneyService {
         }
         return byId;
     }
+
+    @Transactional
+    public void removeById(Integer id) {
+        journeyRepository.removeById(id);
+    }
+
+    @Transactional
+    public void remove(JourneyEntity journey) {
+        journeyRepository.remove(journey);
+    }
 }

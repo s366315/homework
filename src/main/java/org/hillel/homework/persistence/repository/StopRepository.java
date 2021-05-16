@@ -9,6 +9,7 @@ import java.util.Optional;
 
 @Repository
 public class StopRepository  extends AbsRepository<StopEntity> {
-
-
+    public StopRepository() {
+        super(StopEntity.class);
+    }
 }

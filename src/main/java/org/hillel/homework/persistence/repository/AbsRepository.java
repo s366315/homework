@@ -11,6 +11,12 @@ public abstract class AbsRepository<T extends BaseModifyEntity> implements Commo
     @PersistenceContext
     EntityManager entityManager;
 
+    private final Class<T> entityClass;
+
+    public AbsRepository(Class<T> entityClass) {
+        this.entityClass = entityClass;
+    }
+
     @Override
     public T createOrUpdate(T entity) {
         if (entity.getId() == null) {
@@ -22,7 +28,17 @@ public abstract class AbsRepository<T extends BaseModifyEntity> implements Commo
     }
 
     @Override
-    public Optional<T> findById(Integer id) {
+    public Optional<T> findById(int id) {
         return Optional.empty();
+    }
+
+    @Override
+    public void removeById(int id) {
+        entityManager.remove(entityManager.getReference(entityClass, id));
+    }
+
+    @Override
+    public void remove(T entity) {
+
     }
 }

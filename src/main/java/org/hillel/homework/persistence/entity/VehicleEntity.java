@@ -1,9 +1,15 @@
 package org.hillel.homework.persistence.entity;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "vehicle")
@@ -18,7 +24,7 @@ public class VehicleEntity extends BaseModifyEntity{
     private Set<JourneyEntity> journeys;
 
     @OneToMany(mappedBy = "vehicle", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<SeatEntity> seatInfos;
+    private List<SeatEntity> seats;
 
     public void addJourney(@NonNull final JourneyEntity journey){
         if (journeys == null){
@@ -29,8 +35,8 @@ public class VehicleEntity extends BaseModifyEntity{
     }
 
     public void addSeatInfo(@NonNull SeatEntity seatInfo){
-        if (seatInfos == null) seatInfos = new ArrayList<>();
-        seatInfos.add(seatInfo);
+        if (seats == null) seats = new ArrayList<>();
+        seats.add(seatInfo);
         seatInfo.setVehicle(this);
     }
 }

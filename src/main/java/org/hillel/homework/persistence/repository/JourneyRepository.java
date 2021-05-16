@@ -14,6 +14,10 @@ import java.util.Optional;
 @Repository
 public class JourneyRepository  extends AbsRepository<JourneyEntity> {
 
+    public JourneyRepository() {
+        super(JourneyEntity.class);
+    }
+
     @Override
     public JourneyEntity createOrUpdate(JourneyEntity entity) {
         final VehicleEntity vehicle = entity.getVehicle();

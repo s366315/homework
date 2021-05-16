@@ -8,6 +8,7 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -37,7 +38,7 @@ public class JourneyEntity extends BaseModifyEntity {
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "journey_stop", joinColumns = @JoinColumn(name = "journey_id"))
-    private Collection<StopEntity> stopPoints;
+    private List<StopEntity> stopPoints;
 
     public void addStop(@NonNull final StopEntity stop){
         if (stopPoints == null) stopPoints = new ArrayList<>();
