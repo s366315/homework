@@ -10,7 +10,6 @@ import javax.persistence.*;
 @Entity
 @Table(name = "stop_additional_info")
 @NoArgsConstructor
-@ToString
 @Getter
 @Setter
 public class StopAdditionalInfoEntity {

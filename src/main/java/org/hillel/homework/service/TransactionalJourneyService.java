@@ -4,36 +4,28 @@ import org.hillel.homework.persistence.entity.JourneyEntity;
 import org.hillel.homework.persistence.repository.JourneyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.Optional;
 
 @Service(value = "transactionalJourneyService")
-public class TransactionalJourneyService implements JourneyService<JourneyEntity> {
+public class TransactionalJourneyService {
 
     @Autowired
-    private JourneyRepository<JourneyEntity> journeyRepository;
+    private JourneyRepository journeyRepository;
 
-    @Override
-    public Collection find(String stationFrom, String stationTo, LocalDate dateFrom, LocalDate dateTo) {
-        List<JourneyEntity> out = new ArrayList<>();
-        for (JourneyEntity item : journeyRepository.getJourneys()) {
-            if (item.getDeparture().equals(dateFrom) &&
-                    item.getArrival().equals(dateTo) &&
-                    item.getStationFrom().equals(stationFrom) &&
-                    item.getStationTo().equals(stationTo)) {
-                out.add(item);
-            }
-        }
-        return Collections.unmodifiableList(out);
+    @Transactional
+    public JourneyEntity createOrUpdate(final JourneyEntity entity) {
+        return journeyRepository.createOrUpdate(entity);
     }
 
-
-    @Override
-    public int createJourney(final JourneyEntity entity) {
-        return journeyRepository.create(entity);
+    @Transactional(readOnly = true)
+    public Optional<JourneyEntity> findById(Integer id, boolean withDependencies) {
+        final Optional<JourneyEntity> byId = journeyRepository.findById(id);
+        if (withDependencies && byId.isPresent()) {
+            byId.get().getVehicle().getName();
+            byId.get().getStopPoints().size();
+        }
+        return byId;
     }
 }

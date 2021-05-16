@@ -51,6 +51,7 @@ public class DatabaseConfig {
         properties.put("hibernate.dialect", PostgreSQL10Dialect.class.getName());
         properties.put("hibernate.hbm2dll.auto", "create");
         properties.put("hibernate.show_sql", "true");
+        properties.put("javax.persistence.schema-generation.database.action", "drop-and-create");
         properties.put("javax.persistence.query.timeout", "300000");
         emf.setJpaProperties(properties);
         return emf;

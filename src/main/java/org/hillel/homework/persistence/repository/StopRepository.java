@@ -1,9 +1,14 @@
 package org.hillel.homework.persistence.repository;
 
-import java.util.List;
+import org.hillel.homework.persistence.entity.StopEntity;
+import org.springframework.stereotype.Repository;
 
-public interface StopRepository<T> {
-    List<T> getStops();
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import java.util.Optional;
 
-    int create(T entity);
+@Repository
+public class StopRepository  extends AbsRepository<StopEntity> {
+
+
 }

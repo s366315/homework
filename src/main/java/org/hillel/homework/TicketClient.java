@@ -1,33 +1,56 @@
 package org.hillel.homework;
 
+import lombok.NoArgsConstructor;
 import org.hillel.homework.persistence.entity.JourneyEntity;
+import org.hillel.homework.persistence.entity.SeatEntity;
 import org.hillel.homework.persistence.entity.StopEntity;
-import org.hillel.homework.service.JourneyService;
+import org.hillel.homework.persistence.entity.VehicleEntity;
+import org.hillel.homework.service.TransactionalJourneyService;
+import org.hillel.homework.service.TransactionalSeatService;
 import org.hillel.homework.service.TransactionalStopService;
+import org.hillel.homework.service.TransactionalVehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
-import java.sql.SQLException;
-import java.time.LocalDate;
-import java.util.Collection;
+import java.util.Optional;
 
+@NoArgsConstructor
 @Component
 public class TicketClient {
+
     @Autowired
-    private JourneyService transactionalJourneyService;
+    private TransactionalJourneyService journeyService;
 
     @Autowired
     private TransactionalStopService stopService;
 
-    public int createJourney(final JourneyEntity journeyEntity) {
-        return transactionalJourneyService.createJourney(journeyEntity);
+    @Autowired
+    private TransactionalSeatService seatInfoService;
+
+    @Autowired
+    private TransactionalVehicleService vehicleService;
+
+    @Autowired
+    private Environment environment;
+
+    public JourneyEntity createOrUpdateJourney(JourneyEntity journey) {
+        return journeyService.createOrUpdate(journey);
     }
 
-    public int createStop(final StopEntity stopEntity) {
-        return stopService.createStop(stopEntity);
+    public Optional<JourneyEntity> findJourneyById(Integer id, boolean withDependencies){
+        return id == null ? Optional.empty() : journeyService.findById(id, withDependencies);
     }
 
-    public Collection<Journey> find(String stationFrom, String stationTo, LocalDate departure, LocalDate arrival) throws SQLException {
-        return transactionalJourneyService.find(stationFrom, stationTo, departure, arrival);
+    public StopEntity createOrUpdateStop(StopEntity stopEntity){
+        return stopService.createOrUpdate(stopEntity);
+    }
+
+    public SeatEntity createOrUpdateSeat(SeatEntity seatInfo) {
+        return seatInfoService.createOrUpdate(seatInfo);
+    }
+
+    public VehicleEntity createOrUpdateVehicle(VehicleEntity vehicle) {
+        return vehicleService.createOrUpdate(vehicle);
     }
 }
