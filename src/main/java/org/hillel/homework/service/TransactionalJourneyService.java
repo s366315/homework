@@ -1,6 +1,7 @@
 package org.hillel.homework.service;
 
 import org.hillel.homework.persistence.entity.JourneyEntity;
+import org.hillel.homework.persistence.repository.AbsRepository;
 import org.hillel.homework.persistence.repository.JourneyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,10 +10,15 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 
 @Service(value = "transactionalJourneyService")
-public class TransactionalJourneyService {
+public class TransactionalJourneyService extends TransactionalAbsService<JourneyEntity> {
+
+    private JourneyRepository journeyRepository;
 
     @Autowired
-    private JourneyRepository journeyRepository;
+    public TransactionalJourneyService(JourneyRepository repository) {
+        super(repository);
+        this.journeyRepository = repository;
+    }
 
     @Transactional
     public JourneyEntity createOrUpdate(final JourneyEntity entity) {

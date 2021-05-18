@@ -8,10 +8,15 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 
 @Service
-public class TransactionalVehicleService {
+public class TransactionalVehicleService  extends TransactionalAbsService<VehicleEntity> {
+
+    private VehicleRepository vehicleRepository;
 
     @Autowired
-    private VehicleRepository vehicleRepository;
+    public TransactionalVehicleService(VehicleRepository repository) {
+        super(repository);
+        this.vehicleRepository = repository;
+    }
 
     @Transactional
     public VehicleEntity createOrUpdate(VehicleEntity vehicleEntity){

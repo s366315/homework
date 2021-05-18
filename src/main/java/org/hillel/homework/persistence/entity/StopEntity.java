@@ -7,10 +7,14 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 @Entity
+@ToString
 @Table(name = "stop")
 @NoArgsConstructor
 @Getter
 @Setter
+@NamedQueries(value = {
+        @NamedQuery(name = "findAllStops", query = "select v from StopEntity v")
+})
 public class StopEntity extends BaseModifyEntity {
 
     @Embedded

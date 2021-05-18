@@ -2,6 +2,7 @@ package org.hillel.homework;
 
 import org.hillel.homework.config.RootConfig;
 import org.hillel.homework.persistence.entity.*;
+import org.hillel.homework.service.QueryType;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -49,23 +50,11 @@ public class Starter {
 
         vehicleEntity = ticketClient.createOrUpdateVehicle(vehicleEntity);
 
-        //редактирование количества мест
-        vehicleEntity.getSeats().get(0).setFreeSeats(20);
-        ticketClient.createOrUpdateVehicle(vehicleEntity);
 
-        //удаление информации о транспорте
-        for (SeatEntity seat : vehicleEntity.getSeats()) {
-            ticketClient.removeSeatInfo(seat);
-        }
-
-        //удаление транспорта
-        ticketClient.removeVehicle(vehicleEntity);
-
-        //удаление остановки
-        StopEntity stop = journeyEntity.getStopPoints().get(0);
-        ticketClient.removeStop(stop);
-
-        //удаление маршрута
-        ticketClient.removeJourneyById(journeyEntity.getId());
+        System.out.println("QueryType.HQL" + ticketClient.findAllJourneys(QueryType.HQL));
+        System.out.println("QueryType.NATIVE" + ticketClient.findAllJourneys(QueryType.NATIVE));
+        System.out.println("QueryType.NAMED" + ticketClient.findAllJourneys(QueryType.NAMED));
+        System.out.println("QueryType.CRITERIA" + ticketClient.findAllJourneys(QueryType.CRITERIA));
+        System.out.println("QueryType.STORED_PROCEDURE" + ticketClient.findAllJourneys(QueryType.STORED_PROCEDURE));
     }
 }

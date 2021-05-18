@@ -15,6 +15,9 @@ import java.util.List;
 @Getter
 @Setter
 @Table(name = "journey")
+@NamedQueries(value = {
+        @NamedQuery(name = "findAllJourneys", query = "select v from JourneyEntity v")
+})
 public class JourneyEntity extends BaseModifyEntity {
 
     @Column(name = "station_from", length = 1000, nullable = false)

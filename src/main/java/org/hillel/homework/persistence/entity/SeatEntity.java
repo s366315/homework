@@ -8,12 +8,16 @@ import lombok.ToString;
 import javax.persistence.*;
 
 @Entity
+@ToString
 @Table(name = "seat")
 @NoArgsConstructor
 @Getter
 @Setter
+@NamedQueries(value = {
+        @NamedQuery(name = "findAllSeat", query = "select v from SeatEntity v")
+})
 public class SeatEntity extends BaseModifyEntity {
-    @ManyToOne(cascade =  {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "vehicle_id", nullable = false)
     private VehicleEntity vehicle;
 

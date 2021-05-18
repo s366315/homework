@@ -5,14 +5,12 @@ import org.hillel.homework.persistence.entity.JourneyEntity;
 import org.hillel.homework.persistence.entity.SeatEntity;
 import org.hillel.homework.persistence.entity.StopEntity;
 import org.hillel.homework.persistence.entity.VehicleEntity;
-import org.hillel.homework.service.TransactionalJourneyService;
-import org.hillel.homework.service.TransactionalSeatService;
-import org.hillel.homework.service.TransactionalStopService;
-import org.hillel.homework.service.TransactionalVehicleService;
+import org.hillel.homework.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
+import java.util.Collection;
 import java.util.Optional;
 
 @NoArgsConstructor
@@ -80,5 +78,18 @@ public class TicketClient {
 
     public void removeStop(StopEntity stop) {
         stopService.remove(stop);
+    }
+
+    public Collection<JourneyEntity> findAllJourneys(QueryType queryType){
+        return journeyService.findAll(queryType);
+    }
+    public Collection<SeatEntity> findAllSeatInfos(QueryType queryType){
+        return seatInfoService.findAll(queryType);
+    }
+    public Collection<StopEntity> findAllStops(QueryType queryType){
+        return stopService.findAll(queryType);
+    }
+    public Collection<VehicleEntity> findAllVehicles(QueryType queryType){
+        return vehicleService.findAll(queryType);
     }
 }

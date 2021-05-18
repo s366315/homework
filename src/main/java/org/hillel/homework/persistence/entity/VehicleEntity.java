@@ -1,9 +1,6 @@
 package org.hillel.homework.persistence.entity;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -16,6 +13,17 @@ import java.util.Set;
 @NoArgsConstructor
 @Getter
 @Setter
+@NamedQueries(value = {
+        @NamedQuery(name = "findAll", query = "select v from VehicleEntity v")
+})
+@NamedStoredProcedureQueries(value = {
+        @NamedStoredProcedureQuery(
+                name = "findAllVehicles",
+                procedureName = "find_all_vehicles",
+                parameters = @StoredProcedureParameter(mode = ParameterMode.REF_CURSOR, type = Class.class),
+                resultClasses = VehicleEntity.class
+        )
+})
 public class VehicleEntity extends BaseModifyEntity{
     @Column(name = "name" )
     private String name;

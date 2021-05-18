@@ -1,6 +1,7 @@
 package org.hillel.homework.service;
 
 import org.hillel.homework.persistence.entity.SeatEntity;
+import org.hillel.homework.persistence.repository.AbsRepository;
 import org.hillel.homework.persistence.repository.SeatRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,10 +9,14 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 
 @Service
-public class TransactionalSeatService {
+public class TransactionalSeatService extends TransactionalAbsService<SeatEntity> {
+    private SeatRepository seatRepository;
 
     @Autowired
-    private SeatRepository seatRepository;
+    public TransactionalSeatService(SeatRepository repository) {
+        super(repository);
+        this.seatRepository = repository;
+    }
 
     @Transactional
     public SeatEntity createOrUpdate(SeatEntity seatEntity){

@@ -8,6 +8,7 @@ import lombok.ToString;
 import javax.persistence.*;
 
 @Entity
+@ToString
 @Table(name = "stop_additional_info")
 @NoArgsConstructor
 @Getter
