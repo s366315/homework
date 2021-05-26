@@ -80,16 +80,20 @@ public class TicketClient {
         stopService.remove(stop);
     }
 
-    public Collection<JourneyEntity> findAllJourneys(QueryType queryType){
-        return journeyService.findAll(queryType);
+    public Collection<JourneyEntity> findAllJourneys(QueryType queryType, int pageNumber, int pageSize, String orderFieldName, boolean orderAsc){
+        QueryRequest request = new QueryRequest(queryType, pageNumber, pageSize, orderFieldName, orderAsc);
+        return journeyService.findAll(request);
     }
-    public Collection<SeatEntity> findAllSeatInfos(QueryType queryType){
-        return seatInfoService.findAll(queryType);
+    public Collection<SeatEntity> findAllSeatsInfo(QueryType queryType, int pageNumber, int pageSize, String orderFieldName, boolean orderAsc){
+        QueryRequest request = new QueryRequest(queryType, pageNumber, pageSize, orderFieldName, orderAsc);
+        return seatInfoService.findAll(request);
     }
-    public Collection<StopEntity> findAllStops(QueryType queryType){
-        return stopService.findAll(queryType);
+    public Collection<StopEntity> findAllStops(QueryType queryType, int pageNumber, int pageSize, String orderFieldName, boolean orderAsc){
+        QueryRequest request = new QueryRequest(queryType, pageNumber, pageSize, orderFieldName, orderAsc);
+        return stopService.findAll(request);
     }
-    public Collection<VehicleEntity> findAllVehicles(QueryType queryType){
-        return vehicleService.findAll(queryType);
+    public Collection<VehicleEntity> findAllVehicles(QueryType queryType, int pageNumber, int pageSize, String orderFieldName, boolean orderAsc){
+        QueryRequest request = new QueryRequest(queryType, pageNumber, pageSize, orderFieldName, orderAsc);
+        return vehicleService.findAll(request);
     }
 }

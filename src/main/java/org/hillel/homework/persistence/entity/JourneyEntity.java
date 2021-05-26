@@ -51,4 +51,17 @@ public class JourneyEntity extends BaseModifyEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "vehicle_id")
     private VehicleEntity vehicle;
+
+    @Override
+    public String toString() {
+        return "JourneyEntity{" +
+                "id='" + getId() + '\'' +
+                "stationFrom='" + stationFrom + '\'' +
+                ", stationTo='" + stationTo + '\'' +
+                ", dateFrom=" + dateFrom +
+                ", dateTo=" + dateTo +
+                ", direction=" + direction +
+                ", route='" + route + '\'' +
+                '}';
+    }
 }

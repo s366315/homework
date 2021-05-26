@@ -47,4 +47,12 @@ public class VehicleEntity extends BaseModifyEntity{
         seats.add(seatInfo);
         seatInfo.setVehicle(this);
     }
+
+    @Override
+    public String toString() {
+        return "VehicleEntity{" +
+                "id='" + getId() + '\'' +
+                "name='" + name + '\'' +
+                '}';
+    }
 }

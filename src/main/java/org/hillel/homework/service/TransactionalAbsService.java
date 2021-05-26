@@ -2,7 +2,6 @@ package org.hillel.homework.service;
 
 import org.hillel.homework.persistence.entity.BaseModifyEntity;
 import org.hillel.homework.persistence.repository.AbsRepository;
-import org.hillel.homework.persistence.repository.CommonRepository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
@@ -16,45 +15,45 @@ public abstract class TransactionalAbsService<T extends BaseModifyEntity> {
     }
 
     @Transactional(readOnly = true)
-    public Collection<T> findAll(QueryType queryType) {
-        switch (queryType) {
+    public Collection<T> findAll(QueryRequest request) {
+        switch (request.getQueryType()) {
             case HQL:
-                return findAll();
+                return findAllHql(request);
             case NATIVE:
-                return findAllAsNative();
+                return findAllAsNative(request);
             case NAMED:
-                return findAllAsNamed();
+                return findAllAsNamed(request);
             case CRITERIA:
-                return findAllAsCriteria();
+                return findAllAsCriteria(request);
             case STORED_PROCEDURE:
-                return findAllAsStoredProcedure();
+                return findAllAsStoredProcedure(request);
             default:
                 throw new IllegalArgumentException("unknown queryType");
         }
     }
 
     @Transactional(readOnly = true)
-    public Collection<T> findAll() {
-        return repository.findAll();
+    public Collection<T> findAllHql(QueryRequest request) {
+        return repository.findAll(request);
     }
 
     @Transactional(readOnly = true)
-    public Collection<T> findAllAsNative() {
-        return repository.findAllAsNative();
+    public Collection<T> findAllAsNative(QueryRequest request) {
+        return repository.findAllAsNative(request);
     }
 
     @Transactional(readOnly = true)
-    public Collection<T> findAllAsNamed() {
-        return repository.findAllAsNamed();
+    public Collection<T> findAllAsNamed(QueryRequest request) {
+        return repository.findAllAsNamed(request);
     }
 
     @Transactional(readOnly = true)
-    public Collection<T> findAllAsCriteria() {
-        return repository.findAllAsCriteria();
+    public Collection<T> findAllAsCriteria(QueryRequest request) {
+        return repository.findAllAsCriteria(request);
     }
 
     @Transactional(readOnly = true)
-    public Collection<T> findAllAsStoredProcedure() {
-        return repository.findAllAsStoredProcedure();
+    public Collection<T> findAllAsStoredProcedure(QueryRequest request) {
+        return repository.findAllAsStoredProcedure(request);
     }
 }

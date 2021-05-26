@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 @Entity
-@ToString
 @Table(name = "stop")
 @NoArgsConstructor
 @Getter
@@ -41,5 +40,12 @@ public class StopEntity extends BaseModifyEntity {
             journeys = new ArrayList<>();
         }
         journeys.add(journey);
+    }
+
+    @Override
+    public String toString() {
+        return "VehicleEntity{" +
+                "id='" + getId() + '\'' +
+                '}';
     }
 }
