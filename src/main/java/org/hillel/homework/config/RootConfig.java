@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
 @Configuration
-@ComponentScan("org.hillel")
+@ComponentScan("org.hillel.homework")
 @PropertySource("database.properties")
 public class RootConfig {
 

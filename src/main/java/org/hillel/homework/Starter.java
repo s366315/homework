@@ -15,7 +15,7 @@ public class Starter {
         TicketClient ticketClient = applicationContext.getBean(TicketClient.class);
 
         VehicleEntity vehicleEntity = new VehicleEntity();
-        vehicleEntity.setName("MAN");
+        vehicleEntity.setName("BAmbassador");
         vehicleEntity = ticketClient.createOrUpdateVehicle(vehicleEntity);
 
         JourneyEntity journeyEntity = new JourneyEntity();
@@ -51,19 +51,11 @@ public class Starter {
         vehicleEntity = ticketClient.createOrUpdateVehicle(vehicleEntity);
 
         System.out.println("----------------");
-        System.out.println("QueryType.HQL с сортировкой по id " + ticketClient.findAllJourneys(QueryType.HQL, 1, 5, "id", true));
-        System.out.println("QueryType.NATIVE с сортировкой по id " + ticketClient.findAllJourneys(QueryType.NATIVE, 1, 5, "id", true));
-        System.out.println("QueryType.NAMED с сортировкой по id " + ticketClient.findAllJourneys(QueryType.NAMED, 1, 5, "id", true));
-        System.out.println("QueryType.CRITERIA с сортировкой по id " + ticketClient.findAllJourneys(QueryType.CRITERIA, 1, 5, "id", true));
+//        System.out.println("с сортировкой по id " + ticketClient.findAllJourneys( 0, 5, VehicleEntity_.ID));
         System.out.println("----------------");
-        System.out.println("QueryType.HQL с сортировкой по name " + ticketClient.findAllVehicles(QueryType.HQL, 1, 5, "name", true));
-        System.out.println("QueryType.NATIVE с сортировкой по name " + ticketClient.findAllVehicles(QueryType.NATIVE, 1, 5, "name", true));
-        System.out.println("QueryType.NAMED с сортировкой по name " + ticketClient.findAllVehicles(QueryType.NAMED, 1, 5, "name", true));
-        System.out.println("QueryType.CRITERIA с сортировкой по name " + ticketClient.findAllVehicles(QueryType.CRITERIA, 1, 5, "name", true));
+        System.out.println("с сортировкой по name " + ticketClient.findAllVehicles( 0, 50, VehicleEntity_.NAME));
+        System.out.println("поиск по имени " + ticketClient.findAllVehiclesByName( 0, 50, "MAN"));
         System.out.println("----------------");
-        System.out.println("QueryType.HQL с сортировкой по active " + ticketClient.findAllStops(QueryType.HQL, 1, 5, "active", true));
-        System.out.println("QueryType.NATIVE с сортировкой по active " + ticketClient.findAllStops(QueryType.NATIVE, 1, 5, "active", true));
-        System.out.println("QueryType.NAMED с сортировкой по active " + ticketClient.findAllStops(QueryType.NAMED, 1, 5, "active", true));
-        System.out.println("QueryType.CRITERIA с сортировкой по active " + ticketClient.findAllStops(QueryType.CRITERIA, 1, 5, "active", true));
+//        System.out.println("с сортировкой по active " + ticketClient.findAllStops( 0, 5, VehicleEntity_.ACTIVE));
     }
 }

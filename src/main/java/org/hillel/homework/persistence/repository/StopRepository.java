@@ -1,15 +1,10 @@
 package org.hillel.homework.persistence.repository;
 
 import org.hillel.homework.persistence.entity.StopEntity;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import java.util.Optional;
-
 @Repository
-public class StopRepository  extends AbsRepository<StopEntity> {
-    public StopRepository() {
-        super(StopEntity.class);
-    }
+public interface StopRepository extends CommonRepository<StopEntity>, JpaSpecificationExecutor<StopEntity> {
+
 }

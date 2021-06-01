@@ -18,16 +18,16 @@ import java.util.Optional;
 public class TicketClient {
 
     @Autowired
-    private TransactionalJourneyService journeyService;
+    private JourneyService journeyService;
 
     @Autowired
-    private TransactionalStopService stopService;
+    private StopService stopService;
 
     @Autowired
-    private TransactionalSeatService seatInfoService;
+    private SeatService seatInfoService;
 
     @Autowired
-    private TransactionalVehicleService vehicleService;
+    private VehicleService vehicleService;
 
     @Autowired
     private Environment environment;
@@ -36,11 +36,11 @@ public class TicketClient {
         return journeyService.createOrUpdate(journey);
     }
 
-    public Optional<JourneyEntity> findJourneyById(Integer id, boolean withDependencies){
+    public Optional<JourneyEntity> findJourneyById(Integer id, boolean withDependencies) {
         return id == null ? Optional.empty() : journeyService.findById(id, withDependencies);
     }
 
-    public StopEntity createOrUpdateStop(StopEntity stopEntity){
+    public StopEntity createOrUpdateStop(StopEntity stopEntity) {
         return stopService.createOrUpdate(stopEntity);
     }
 
@@ -60,19 +60,19 @@ public class TicketClient {
         journeyService.removeById(journeyId);
     }
 
-    public void removeVehicle(VehicleEntity vehicleEntity){
+    public void removeVehicle(VehicleEntity vehicleEntity) {
         vehicleService.remove(vehicleEntity);
     }
 
-    public void removeVehicleById(Integer id){
+    public void removeVehicleById(Integer id) {
         vehicleService.removeById(id);
     }
 
-    public void removeSeatInfo(SeatEntity seatInfo){
+    public void removeSeatInfo(SeatEntity seatInfo) {
         seatInfoService.remove(seatInfo);
     }
 
-    public void removeSeatInfoById(Integer id){
+    public void removeSeatInfoById(Integer id) {
         seatInfoService.removeById(id);
     }
 
@@ -80,20 +80,23 @@ public class TicketClient {
         stopService.remove(stop);
     }
 
-    public Collection<JourneyEntity> findAllJourneys(QueryType queryType, int pageNumber, int pageSize, String orderFieldName, boolean orderAsc){
-        QueryRequest request = new QueryRequest(queryType, pageNumber, pageSize, orderFieldName, orderAsc);
-        return journeyService.findAll(request);
+    public Collection<JourneyEntity> findAllJourneys(int pageNumber, int pageSize, String orderFieldName) {
+        return journeyService.getPageSortBy(pageNumber, pageSize, orderFieldName);
     }
-    public Collection<SeatEntity> findAllSeatsInfo(QueryType queryType, int pageNumber, int pageSize, String orderFieldName, boolean orderAsc){
-        QueryRequest request = new QueryRequest(queryType, pageNumber, pageSize, orderFieldName, orderAsc);
-        return seatInfoService.findAll(request);
+
+    public Collection<SeatEntity> findAllSeatsInfo(int pageNumber, int pageSize, String orderFieldName) {
+        return seatInfoService.getPageSortBy(pageNumber, pageSize, orderFieldName);
     }
-    public Collection<StopEntity> findAllStops(QueryType queryType, int pageNumber, int pageSize, String orderFieldName, boolean orderAsc){
-        QueryRequest request = new QueryRequest(queryType, pageNumber, pageSize, orderFieldName, orderAsc);
-        return stopService.findAll(request);
+
+    public Collection<StopEntity> findAllStops(int pageNumber, int pageSize, String orderFieldName) {
+        return stopService.getPageSortBy(pageNumber, pageSize, orderFieldName);
     }
-    public Collection<VehicleEntity> findAllVehicles(QueryType queryType, int pageNumber, int pageSize, String orderFieldName, boolean orderAsc){
-        QueryRequest request = new QueryRequest(queryType, pageNumber, pageSize, orderFieldName, orderAsc);
-        return vehicleService.findAll(request);
+
+    public Collection<VehicleEntity> findAllVehicles(int pageNumber, int pageSize, String orderFieldName) {
+        return vehicleService.getPageSortBy(pageNumber, pageSize, orderFieldName);
+    }
+
+    public Collection<VehicleEntity> findAllVehiclesByName(int pageNumber, int pageSize, String name) {
+        return vehicleService.getPageByName(pageNumber, pageSize, name);
     }
 }

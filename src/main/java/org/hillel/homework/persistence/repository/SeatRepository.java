@@ -1,12 +1,10 @@
 package org.hillel.homework.persistence.repository;
 
 import org.hillel.homework.persistence.entity.SeatEntity;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class SeatRepository extends AbsRepository<SeatEntity> {
+public interface SeatRepository extends CommonRepository<SeatEntity>, JpaSpecificationExecutor<SeatEntity> {
 
-    public SeatRepository() {
-        super(SeatEntity.class);
-    }
 }
